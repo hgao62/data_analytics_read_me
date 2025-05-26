@@ -4,6 +4,8 @@ This file outlines the tasks for your finance ETL and analysis project. Each tas
 
 ---
 
+### Lesson 1 录屏:[Google drive 链接](https://drive.google.com/drive/folders/1iU_gEgyRuALyBOeynR6HDsr5lbL9nP69?usp=sharing)
+
 ## Task 1: Get Data
 
 ### Functions
