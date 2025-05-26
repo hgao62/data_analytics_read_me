@@ -34,6 +34,11 @@ This file outlines the tasks for your finance ETL and analysis project. Each tas
 
 ---
 
+### Lesson 2 预习资料
+
+1. what is virtual environment and how to create it: [小红书链接](http://xhslink.com/a/fcm1rJhRcPtdb)
+2. how to debug in vs code: [小红书链接](http://xhslink.com/a/LlaEZ4NxRPtdb)
+
 ## Task 2: Clean Data
 
 _(If you have a dedicated function for cleaning data or handling missing values, include it here. Otherwise, place your cleaning logic directly in your main pipeline.)_
