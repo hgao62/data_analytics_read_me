@@ -39,50 +39,39 @@ This file outlines the tasks for your finance ETL and analysis project. Each tas
 1. what is virtual environment and how to create it: [小红书链接](http://xhslink.com/a/fcm1rJhRcPtdb)
 2. how to debug in vs code: [小红书链接](http://xhslink.com/a/LlaEZ4NxRPtdb)
 
-## Task 2: Clean Data
+## Task 2: Enrich Data
 
-_(If you have a dedicated function for cleaning data or handling missing values, include it here. Otherwise, place your cleaning logic directly in your main pipeline.)_
+create a python file called transform.py and put following python functions into it
 
-### Possible Steps
+1. create `add_stock_returns(df: pd.DataFrame) -> pd.DataFrame` function so it takes the data loaded from get_stock_data above and add daily_return column and cumulative_return column
 
-- Convert date columns to a proper datetime type (already done in `get_stock_data`).
-- Handle missing values (e.g., drop or fill with averages).
-- Drop or rename unnecessary columns.
+<img alt="stock return" src="screenshots/stock_return.png" width="1000">
 
-### Expected Output
+2. create `calculate_moving_average(df: pd.DataFrame, window: int) -> pd.DataFrame` function so it calculate the moving average of stock close price based on the window parameter
 
-- A DataFrame with consistent and valid data for further processing.  
-  _(Note: No specific function exists in your current codebase for cleaning, so you can implement these steps wherever needed.)_
+<img alt="moving avg" src="screenshots/moving_avg.png" width="1000">
 
----
+3. create `add_stock_volatility(df: pd.DataFrame, window: int) -> pd.DataFrame` function it uses the daily return calculated in step 1 to calculate stock volatility column based on the window input
 
-## Task 3: Enrich Data
-
-### Relevant Functions
-
-_(Potentially from `transform_data.py`)_
-
-1. `add_stock_returns(df: pd.DataFrame) -> pd.DataFrame`
-2. `calculate_moving_average(df: pd.DataFrame, window: int) -> pd.DataFrame`
-3. `add_stock_volatility(df: pd.DataFrame, window: int) -> pd.DataFrame`
-4. `enrich_with_sector_industry(df: pd.DataFrame) -> pd.DataFrame`
+<img alt="volatility" src="screenshots/vol.png" width="1000">
 
 ### Instructions
 
-- **`add_stock_returns`**: Calculate daily returns → `(Close_today - Close_yesterday) / Close_yesterday`.
+- **`add_stock_returns`**:
+  a. "daily_return": this is calculated using the "close" price column, google "how to calcualte daily return pandas"
+  b. "cummulative_return": this is caculated using the "daily_return" caculated from step above(see stackoverflow below)
+  https://stackoverflow.com/questions/35365545/calculating-cumulative-returns-with-pandas-dataframe
+
 - **`calculate_moving_average`**: Add a specified moving-average column (e.g., 30-day MA).
 - **`add_stock_volatility`**: Compute rolling standard deviation based on daily returns over a chosen window (e.g., 30 days).
-- **`enrich_with_sector_industry`**: Merge data from `get_sector_data()` into your DataFrame to add sector and industry columns.
-
-### Expected Output
-
-- A DataFrame enriched with new columns (e.g., daily returns, moving average, volatility, sector, industry).
-
----
 
 ## Task 4: Compute Monthly Stats
 
 ### Relevant Functions
+
+4. `enrich_with_sector_industry(df: pd.DataFrame) -> pd.DataFrame`
+
+- **`enrich_with_sector_industry`**: Merge data from `get_sector_data()` into your DataFrame to add sector and industry columns.
 
 _(Potentially from `transform_data.py`)_
 
