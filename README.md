@@ -34,6 +34,7 @@ This file outlines the tasks for your finance ETL and analysis project. Each tas
 
 ---
 
+
 ### Lesson 2 预习资料
 
 1. what is virtual environment and how to create it: [小红书链接](http://xhslink.com/a/fcm1rJhRcPtdb)
@@ -147,8 +148,62 @@ Use your `main.py` script to stitch everything together in a logical sequence:
 
 ---
 
-**Final Notes**
 
-- Explore each function’s docstrings and confirm that inputs and outputs meet expectations.
-- Add or refine data cleaning steps (Task 2) if necessary.
-- Experiment with additional data visualization techniques (bar charts, scatter plots, heatmaps), especially if you want more variety in your HTML report.
+
+Task 1 Solution
+```Python
+from pathlib import Path
+import pandas as pd
+from model import StockPrice, EnrichmentColumns
+PROJECT_FOLDER = Path(__file__).parent 
+DATA_FOLDER = PROJECT_FOLDER.joinpath('data')
+
+
+#Task 1: Read the stock data from a CSV file and filter it by stock name(make sure stock name is insensitive) and date range.
+# The function get_stock_data takes a stock name, start date, and end date as input parameters.
+# It reads the stock data from a CSV file, filters it by the specified stock name and date range,
+# and returns the filtered data as a pandas DataFrame.
+def get_stock_data(stock_name: str, start_date:str, end_date:str) -> pd.DataFrame:
+    """
+    Retrieves stock data for a specific stock within a given date range.
+
+    This function reads stock data from a CSV file, filters it by the specified stock name
+    and date range, and returns the filtered data as a pandas DataFrame.
+
+    Args:
+        stock_name (str): The name of the stock to filter.
+        start_date (str): The start date of the range in 'YYYY-MM-DD' format.
+        end_date (str): The end date of the range in 'YYYY-MM-DD' format.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing the filtered stock data with columns such as
+                      'Date', 'Stock', and other stock-related metrics.
+
+    """
+    stock_data_path = DATA_FOLDER.joinpath('stock_data.csv')
+    df = pd.read_csv(stock_data_path)
+    df[StockPrice.DATE] = pd.to_datetime(df[StockPrice.DATE])
+    mask = (df[StockPrice.DATE] >= start_date) & (df[StockPrice.DATE] <= end_date) & (df[StockPrice.TICKER].str.lower() == stock_name.lower()) 
+    filtered_df = df.loc[mask]     
+    
+    return filtered_df
+
+
+def get_sector_data() -> pd.DataFrame:
+    """
+    Retrieves sector data from a CSV file.
+
+    This function reads sector data from a CSV file and returns it as a pandas DataFrame.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing the sector data with columns such as
+                      'Ticker', 'Sector', and 'Industry'.
+
+    """
+    sector_data_path = DATA_FOLDER.joinpath('sector_info.csv')
+    df = pd.read_csv(sector_data_path)
+    return df   
+
+```Python
+
+
