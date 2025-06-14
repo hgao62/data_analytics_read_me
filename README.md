@@ -148,7 +148,7 @@ Use your `main.py` script to stitch everything together in a logical sequence:
 ---
 
 Task 1 Solution
-copy model.py to your project
+copy model.py in this folder to your project
 
 ````Python
 from pathlib import Path
