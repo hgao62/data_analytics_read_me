@@ -34,7 +34,6 @@ This file outlines the tasks for your finance ETL and analysis project. Each tas
 
 ---
 
-
 ### Lesson 2 预习资料
 
 1. what is virtual environment and how to create it: [小红书链接](http://xhslink.com/a/fcm1rJhRcPtdb)
@@ -148,14 +147,14 @@ Use your `main.py` script to stitch everything together in a logical sequence:
 
 ---
 
-
-
 Task 1 Solution
-```Python
+copy model.py to your project
+
+````Python
 from pathlib import Path
 import pandas as pd
 from model import StockPrice, EnrichmentColumns
-PROJECT_FOLDER = Path(__file__).parent 
+PROJECT_FOLDER = Path(__file__).parent
 DATA_FOLDER = PROJECT_FOLDER.joinpath('data')
 
 
@@ -183,9 +182,9 @@ def get_stock_data(stock_name: str, start_date:str, end_date:str) -> pd.DataFram
     stock_data_path = DATA_FOLDER.joinpath('stock_data.csv')
     df = pd.read_csv(stock_data_path)
     df[StockPrice.DATE] = pd.to_datetime(df[StockPrice.DATE])
-    mask = (df[StockPrice.DATE] >= start_date) & (df[StockPrice.DATE] <= end_date) & (df[StockPrice.TICKER].str.lower() == stock_name.lower()) 
-    filtered_df = df.loc[mask]     
-    
+    mask = (df[StockPrice.DATE] >= start_date) & (df[StockPrice.DATE] <= end_date) & (df[StockPrice.TICKER].str.lower() == stock_name.lower())
+    filtered_df = df.loc[mask]
+
     return filtered_df
 
 
@@ -202,8 +201,9 @@ def get_sector_data() -> pd.DataFrame:
     """
     sector_data_path = DATA_FOLDER.joinpath('sector_info.csv')
     df = pd.read_csv(sector_data_path)
-    return df   
+    return df
 
 ```Python
 
 
+````
