@@ -203,7 +203,56 @@ def get_sector_data() -> pd.DataFrame:
     df = pd.read_csv(sector_data_path)
     return df
 
-```Python
+```
+
+
+Task 2 Solution
+
+def add_stock_returns(stock_history:pd.DataFrame) -> pd.DataFrame:
+    """
+    add stock returns to the stock history DataFrame.
+    This function calculates daily and cumulative returns for the stock data.
+
+    Arguments:
+        stock_history: Pandas DataFrame with historical stock data.
+
+    Return:
+        Enriched Pandas DataFrame.
+    """
+    stock_history = stock_history.sort_values(by=StockPrice.DATE)
+    stock_history[EnrichmentColumns.DAILY_RETURN] = stock_history[StockPrice.CLOSE].pct_change()
+    stock_history[EnrichmentColumns.CUMULATIVE_RETURN] = (1 + stock_history[EnrichmentColumns.DAILY_RETURN]).cumprod()-1
+    return stock_history
+
+def add_stock_volatility(stock_history: pd.DataFrame, window:int = 30) -> pd.DataFrame:
+    """
+    Adds stock volatility to the stock history DataFrame.
+
+    This function calculates the rolling standard deviation of daily returns over a specified window.
+
+    Arguments:
+        stock_history: Pandas DataFrame with historical stock data.
+
+    Return:
+        Enriched Pandas DataFrame.
+    """
+    stock_history = stock_history.sort_values(by=StockPrice.DATE)
+    stock_history[EnrichmentColumns.VOLATILITY] = stock_history[EnrichmentColumns.DAILY_RETURN].rolling(window=window).std()*np.sqrt(252)
+    return stock_history
+
+def calculate_moving_average(stock_history: pd.DataFrame, window: int = 5
+
+) -> pd.DataFrame:
+    """
+    Calculate the moving average for the stock history DataFrame.
+
+    This function computes the moving average of the closing stock prices
+    over a specified window and adds it as a new column to the DataFrame.
+
+    """
+    stock_history = stock_history.sort_values(by=StockPrice.DATE)
+    stock_history[EnrichmentColumns.MOVING_AVERAGE] = stock_history[StockPrice.CLOSE].rolling(window=window).mean()
+    return stock_history
 
 
 ````
