@@ -150,7 +150,7 @@ Use your `main.py` script to stitch everything together in a logical sequence:
 Task 1 Solution
 copy model.py in this folder to your project
 
-````Python
+```Python
 from pathlib import Path
 import pandas as pd
 from model import StockPrice, EnrichmentColumns
@@ -202,16 +202,15 @@ def get_sector_data() -> pd.DataFrame:
     sector_data_path = DATA_FOLDER.joinpath('sector_info.csv')
     df = pd.read_csv(sector_data_path)
     return df
-
 ```
-
 
 Task 2 Solution
 
+```Python
 def add_stock_returns(stock_history:pd.DataFrame) -> pd.DataFrame:
-    """
-    add stock returns to the stock history DataFrame.
-    This function calculates daily and cumulative returns for the stock data.
+"""
+add stock returns to the stock history DataFrame.
+This function calculates daily and cumulative returns for the stock data.
 
     Arguments:
         stock_history: Pandas DataFrame with historical stock data.
@@ -225,8 +224,8 @@ def add_stock_returns(stock_history:pd.DataFrame) -> pd.DataFrame:
     return stock_history
 
 def add_stock_volatility(stock_history: pd.DataFrame, window:int = 30) -> pd.DataFrame:
-    """
-    Adds stock volatility to the stock history DataFrame.
+"""
+Adds stock volatility to the stock history DataFrame.
 
     This function calculates the rolling standard deviation of daily returns over a specified window.
 
@@ -243,8 +242,8 @@ def add_stock_volatility(stock_history: pd.DataFrame, window:int = 30) -> pd.Dat
 def calculate_moving_average(stock_history: pd.DataFrame, window: int = 5
 
 ) -> pd.DataFrame:
-    """
-    Calculate the moving average for the stock history DataFrame.
+"""
+Calculate the moving average for the stock history DataFrame.
 
     This function computes the moving average of the closing stock prices
     over a specified window and adds it as a new column to the DataFrame.
@@ -254,5 +253,4 @@ def calculate_moving_average(stock_history: pd.DataFrame, window: int = 5
     stock_history[EnrichmentColumns.MOVING_AVERAGE] = stock_history[StockPrice.CLOSE].rolling(window=window).mean()
     return stock_history
 
-
-````
+```
